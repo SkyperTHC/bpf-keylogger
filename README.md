@@ -1,6 +1,7 @@
 # bpf-keylogger
 
 This is a keylogger I wrote in eBPF.
+You can find a full writeup of this project [on my blog](https://williamfindlay.com/blog#Writing-an-eBPF-Keylogger).
 
 Requires:
 
