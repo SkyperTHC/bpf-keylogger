@@ -67,7 +67,7 @@ class BPFProgram():
     def main(self):
         self.load_bpf()
 
-        print("Logging key presses... ctrl-c to quit")
+        print("Logging key presses... ctrl-c to quit", file=sys.stderr)
 
         while True:
             time.sleep(ticksleep)
