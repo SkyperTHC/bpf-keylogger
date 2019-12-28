@@ -5,7 +5,8 @@ import time
 
 from bcc import BPF
 
-from defs import project_path
+from defs import project_path, ticksleep
+from keys import translate_keycode
 
 class BPFProgram():
     def __init__(self, args):
@@ -26,6 +27,13 @@ class BPFProgram():
     def cleanup(self):
         self.bpf = None
 
+    def register_perf_buffers(self):
+        def keypress(cpu, data, size):
+            event = self.bpf["keypresses"].event(data)
+            print(translate_keycode(event.code))
+        self.bpf["keypresses"].open_perf_buffer(keypress)
+
+
     def load_bpf(self):
         assert self.bpf == None
 
@@ -38,11 +46,15 @@ class BPFProgram():
             text = f.read()
             self.bpf = BPF(text=text, cflags=flags)
         self.register_exit_hooks()
+        self.register_perf_buffers()
 
     def main(self):
         self.load_bpf()
 
+        print("Logging key presses... ctrl-c to quit")
+
         while True:
-            time.sleep(1)
+            time.sleep(ticksleep)
             if self.debug:
                 self.bpf.trace_print()
+            self.bpf.perf_buffer_poll()
