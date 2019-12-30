@@ -39,9 +39,12 @@ def parse_args(args=sys.argv[1:]):
     parser = argparse.ArgumentParser(prog="bpf-keylogger", description=DESCRIPTION,
             epilog=EPILOG, formatter_class=argparse.RawDescriptionHelpFormatter)
 
-    # Print debug info
+    # Debugging info
     parser.add_argument("--debug", action="store_true",
             help="Print debugging info.")
+    # Timestamps
+    parser.add_argument("-t", "--timestamp", action="store_true",
+            help="Print time stamps.")
 
     # Options for handling output
     output_options = parser.add_mutually_exclusive_group()
