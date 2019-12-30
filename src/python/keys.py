@@ -45,7 +45,7 @@ keys = {
 26: '{',
 27: '}',
 28: 'ENTER',
-29: 'LEFTCTRL',
+29: 'CTRL', # LEFT
 30: 'A',
 31: 'S',
 32: 'D',
@@ -58,7 +58,7 @@ keys = {
 39: ';',
 40: '\'',
 41: '`',
-42: 'LEFTSHIFT',
+42: 'SHIFT', # LEFT
 43: '\\',
 44: 'Z',
 45: 'X',
@@ -70,9 +70,9 @@ keys = {
 51: ',',
 52: '.',
 53: '/',
-54: 'RIGHTSHIFT',
+54: 'SHIFT', # RIGHT
 55: '*',
-56: 'LEFTALT',
+56: 'ALT', # LEFT
 57: 'SPACE',
 58: 'CAPSLOCK',
 59: 'F1',
@@ -115,10 +115,10 @@ keys = {
 94: 'MUHENKAN',
 95: 'KPJPCOMMA',
 96: 'KPENTER',
-97: 'RIGHTCTRL',
+97: 'CTRL', # RIGHT
 98: 'KPSLASH',
 99: 'SYSRQ',
-100: 'RIGHTALT',
+100: 'ALT', # RIGHT
 101: 'LINEFEED',
 102: 'HOME',
 103: 'UP',
@@ -144,8 +144,8 @@ keys = {
 122: 'HANGEUL',
 123: 'HANJA',
 124: 'YEN',
-125: 'LEFTMETA',
-126: 'RIGHTMETA',
+125: 'META', # LEFT
+126: 'META', # RIGHT
 127: 'COMPOSE',
 
 128: 'STOP',
@@ -199,8 +199,8 @@ keys = {
 176: 'EDIT',
 177: 'SCROLLUP',
 178: 'SCROLLDOWN',
-179: 'KPLEFTPAREN',
-180: 'KPRIGHTPAREN',
+179: '(',
+180: ')',
 181: 'NEW',
 182: 'REDO',
 
