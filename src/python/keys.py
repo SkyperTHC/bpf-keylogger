@@ -28,8 +28,8 @@ keys = {
 9: '8',
 10: '9',
 11: '0',
-12: 'MINUS',
-13: 'EQUAL',
+12: '-',
+13: '=',
 14: 'BACKSPACE',
 15: 'TAB',
 16: 'Q',
@@ -42,8 +42,8 @@ keys = {
 23: 'I',
 24: 'O',
 25: 'P',
-26: 'LEFTBRACE',
-27: 'RIGHTBRACE',
+26: '{',
+27: '}',
 28: 'ENTER',
 29: 'LEFTCTRL',
 30: 'A',
@@ -55,11 +55,11 @@ keys = {
 36: 'J',
 37: 'K',
 38: 'L',
-39: 'SEMICOLON',
-40: 'APOSTROPHE',
-41: 'GRAVE',
+39: ';',
+40: '\'',
+41: '`',
 42: 'LEFTSHIFT',
-43: 'BACKSLASH',
+43: '\\',
 44: 'Z',
 45: 'X',
 46: 'C',
@@ -67,11 +67,11 @@ keys = {
 48: 'B',
 49: 'N',
 50: 'M',
-51: 'COMMA',
-52: 'DOT',
-53: 'SLASH',
+51: ',',
+52: '.',
+53: '/',
 54: 'RIGHTSHIFT',
-55: 'KPASTERISK',
+55: '*',
 56: 'LEFTALT',
 57: 'SPACE',
 58: 'CAPSLOCK',
@@ -85,21 +85,23 @@ keys = {
 66: 'F8',
 67: 'F9',
 68: 'F10',
+
+# Numpad
 69: 'NUMLOCK',
 70: 'SCROLLLOCK',
-71: 'KP7',
-72: 'KP8',
-73: 'KP9',
-74: 'KPMINUS',
-75: 'KP4',
-76: 'KP5',
-77: 'KP6',
-78: 'KPPLUS',
-79: 'KP1',
-80: 'KP2',
-81: 'KP3',
-82: 'KP0',
-83: 'KPDOT',
+71: '7',
+72: '8',
+73: '9',
+74: '-',
+75: '4',
+76: '5',
+77: '6',
+78: '+',
+79: '1',
+80: '2',
+81: '3',
+82: '0',
+83: '.',
 
 85: 'ZENKAKUHANKAKU',
 86: '102ND',
@@ -345,8 +347,11 @@ keys = {
 }
 
 
-def translate_keycode(code):
+def translate_keycode(code, ctrl=0, shift=0, alt=0, meta=0):
     try:
-        return keys[code]
+        key = keys[code]
+        key = (f"{'CTRL+' if ctrl else ''}{'ALT+' if alt else ''}{'SHIFT+' if shift else ''}"
+               f"{'META+' if meta else ''}{key}")
+        return key
     except KeyError:
         return None

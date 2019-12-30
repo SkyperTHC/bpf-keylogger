@@ -51,9 +51,9 @@ class BPFProgram():
     def register_perf_buffers(self):
         def keypress(cpu, data, size):
             event = self.bpf["keypresses"].event(data)
-            key = translate_keycode(event.code)
+            key = translate_keycode(event.code, ctrl=event.ctrl, alt=event.alt, shift=event.shift, meta=event.meta)
             if key:
-                print(key)
+                print(f"{key}")
                 sys.stdout.flush()
         self.bpf["keypresses"].open_perf_buffer(keypress)
 
