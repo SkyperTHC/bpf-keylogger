@@ -36,7 +36,8 @@ def is_root():
     return os.geteuid() == 0
 
 def parse_args(args=sys.argv[1:]):
-    parser = argparse.ArgumentParser(prog="bpf-keylogger", description=DESCRIPTION, epilog=EPILOG)
+    parser = argparse.ArgumentParser(prog="bpf-keylogger", description=DESCRIPTION,
+            epilog=EPILOG, formatter_class=argparse.RawDescriptionHelpFormatter)
 
     # Print debug info
     parser.add_argument("--debug", action="store_true",
