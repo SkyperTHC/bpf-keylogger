@@ -5,7 +5,7 @@ You can find a full writeup of this project [on my blog](https://williamfindlay.
 
 Requires:
 
-- Linux 5.4 (may work with older versions)
+- Linux 4.15 (may work with older versions)
 - The latest version of [bcc](https://github.com/iovisor/bcc)
 
 **THIS CODE IS FOR EDUCATIONAL PURPOSES ONLY. DO NOT ATTEMPT TO USE THIS CODE FOR MALICIOUS PURPOSES.**
